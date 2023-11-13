@@ -8,6 +8,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.fragment.findNavController
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
 import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.ActivityMainBinding
 
