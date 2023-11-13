@@ -4,6 +4,20 @@
     <!-- Strings used for fragments for navigation -->
     <string name="lista_fragment_label">Lista Tarea</string>
     <string name="tarea_fragment_label">Tarea </string>
+    <string-array name="categoria">
+        <item>Reparación</item>
+        <item>Instalación</item>
+        <item>Mantenimiento</item>
+        <item>Comercial</item>
+        <item>otros</item>
+    </string-array>
+
+    <string-array name="prioridad">
+        <item>Baja</item>
+        <item>Media</item>
+        <item>Alta</item>
+    </string-array>
+
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
