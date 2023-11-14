@@ -18,6 +18,10 @@
         <item>Media</item>
         <item>Alta</item>
     </string-array>
+    <string name="abierta">Abierta</string>
+    <string name="en_curso">En curso</string>
+    <string name="cerrada">Cerrada</string>
+
     <string name="pagado">Pagado</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>

@@ -45,6 +45,7 @@ class TareaFragment : Fragment() {
         iniciaSpCategoria()
         iniciaSpPrioridad()
         iniciaSwPagado()
+        iniciaRgEstado()
 
     }
 
@@ -75,6 +76,20 @@ class TareaFragment : Fragment() {
                 // Manejar evento cuando no se selecciona nada en el Spinner
             }
         }
+    }
+    private fun iniciaRgEstado() {
+        //listener de radioGroup
+        binding.rgEstado.setOnCheckedChangeListener { _, checkedId ->
+            val imagen= when (checkedId){//el id del RadioButton seleccionado
+                //id del cada RadioButon
+                R.id.rbAbierta-> R.drawable.ic_abierto
+                R.id.rbEnCurso->R.drawable.ic_encurso
+                else-> R.drawable.ic_cerrado
+            }
+            binding.ivEstado.setImageResource(imagen)
+        }
+        //iniciamos a abierto
+        binding.rgEstado.check(R.id.rbAbierta)
     }
     private fun iniciaSwPagado() {
         binding.swPagado.setOnCheckedChangeListener { _, isChecked ->
