@@ -26,6 +26,8 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="tecnico">Técnico</string>
+
     <string name="horas_trabajadas">Llevo %1$d horas trabajadas</string>
 
     <string name="lorem_ipsum">
