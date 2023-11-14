@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.RatingBar
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
@@ -48,7 +50,6 @@ class TareaFragment : Fragment() {
         iniciaSwPagado()
         iniciaRgEstado()
         iniciaSbHoras()
-
     }
 
     private fun iniciaSpCategoria() {

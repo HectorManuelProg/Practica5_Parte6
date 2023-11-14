@@ -5,6 +5,8 @@
     <string name="lista_fragment_label">Lista Tarea</string>
     <string name="tarea_fragment_label">Tarea </string>
     <string name="mensaje_categoria">Has seleccionado %1$s como categoría</string>
+
+    <string name="categoria">Categoria</string>
     <string-array name="categoria">
         <item>Reparación</item>
         <item>Instalación</item>
