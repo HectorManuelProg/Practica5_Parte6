@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
 import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentTareaBinding
 
@@ -43,6 +44,7 @@ class TareaFragment : Fragment() {
 
         iniciaSpCategoria()
         iniciaSpPrioridad()
+
     }
 
     private fun iniciaSpCategoria() {
@@ -58,6 +60,21 @@ class TareaFragment : Fragment() {
             // asignamos el adaptador al spinner
             binding.spCategoria.adapter = adapter
         }
+        binding.spCategoria.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, posicion: Int, id: Long) {
+                //recuperamos el valor
+                val valor=binding.spCategoria.getItemAtPosition(posicion)
+                //creamos el mensaje desde el recurso string parametrizado
+                val mensaje=getString(R.string.mensaje_categoria,valor)
+                //mostramos el mensaje donde "binding.root" es el ContrainLayout principal
+                Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Manejar evento cuando no se selecciona nada en el Spinner
+            }
+        }
+
     }
     private fun iniciaSpPrioridad() {
         ArrayAdapter.createFromResource(
