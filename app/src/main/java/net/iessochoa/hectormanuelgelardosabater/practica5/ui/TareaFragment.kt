@@ -22,29 +22,19 @@ import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentTa
 class TareaFragment : Fragment() {
 
     private var _binding: FragmentTareaBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentTareaBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-      /*  binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_TareaFragment_to_FirstFragment)
-        }*/
-
+        //Iniciamos las funciones
         iniciaSpCategoria()
         iniciaSpPrioridad()
         iniciaSwPagado()
