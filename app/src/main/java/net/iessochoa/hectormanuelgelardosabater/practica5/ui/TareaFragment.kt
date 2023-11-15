@@ -59,9 +59,9 @@ class TareaFragment : Fragment() {
             //array de strings
             R.array.categoria,
             //layout para mostrar el elemento seleccionado
-            android.R.layout.simple_spinner_item).also { adapter ->
+            R.layout.spinner_items).also { adapter ->
             // Layout para mostrar la apariencia de la lista
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_items)
             // asignamos el adaptador al spinner
             binding.spCategoria.adapter = adapter
         }
@@ -113,9 +113,9 @@ class TareaFragment : Fragment() {
             //array de strings
             R.array.prioridad,
             //layout para mostrar el elemento seleccionado
-            android.R.layout.simple_spinner_item).also { adapter ->
+            R.layout.spinner_items).also { adapter ->
             // Layout para mostrar la apariencia de la lista
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_items)
             // asignamos el adaptador al spinner
             binding.spPrioridad.adapter = adapter
         }
