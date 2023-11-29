@@ -1,5 +1,9 @@
 package model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Tarea(
 var id:Long?=null,//id único
 val categoria:Int,
@@ -10,7 +14,8 @@ val horasTrabajo:Int,
 val valoracionCliente:Float,
 val tecnico:String,
 val descripcion:String
-){
+):Parcelable
+{
     //segundo constructor que genera id nuevo
     constructor( categoria:Int,
                  prioridad:Int,
