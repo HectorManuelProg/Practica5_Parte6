@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.core.view.updatePadding
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
@@ -33,12 +34,16 @@ class TareaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
         //Iniciamos las funciones
         iniciaSpCategoria()
         iniciaSpPrioridad()
         iniciaSwPagado()
         iniciaRgEstado()
         iniciaSbHoras()
+
     }
 
     private fun iniciaSpCategoria() {

@@ -208,13 +208,13 @@
 
     <EditText
         android:id="@+id/etDescripcion"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="389dp"
+        android:layout_height="112dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.315"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDescripcion" />
 
@@ -228,5 +228,5 @@
         app:layout_constraintBottom_toTopOf="@+id/etDescripcion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
