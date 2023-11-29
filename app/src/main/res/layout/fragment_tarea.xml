@@ -179,7 +179,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvHoras" />
 
     <RatingBar
-        android:id="@+id/rbValoracion"
+        android:id="@+id/rtbValoracion"
         style="@android:style/Widget.Material.Light.RatingBar.Indicator"
         android:layout_width="186dp"
         android:layout_height="50dp"
@@ -197,7 +197,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbValoracion">
+        app:layout_constraintTop_toBottomOf="@+id/rtbValoracion">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTecnico"

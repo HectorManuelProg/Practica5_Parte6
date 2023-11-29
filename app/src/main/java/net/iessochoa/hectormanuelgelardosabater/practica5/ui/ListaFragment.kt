@@ -44,9 +44,6 @@ class ListaFragment : Fragment() {
             actualizaLista(lista)
         })
 
-       /* binding.fabNuevo.setOnClickListener{
-            findNavController().navigate(R.id.action_editar)
-        }*/
         binding.fabNuevo.setOnClickListener {
         //creamos acción enviamos argumento nulo porque queremos crear NuevaTarea
             val action=ListaFragmentDirections.actionEditar(null)
@@ -62,10 +59,7 @@ class ListaFragment : Fragment() {
             val action=ListaFragmentDirections.actionEditar(tarea)
             findNavController().navigate(action)
         }
-
-        //actualizaLista()
     }
-
     private fun actualizaLista(lista: List<Tarea>?) {
         //creamos un string modificable
         val listaString = buildString {

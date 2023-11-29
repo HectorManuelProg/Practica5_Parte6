@@ -1,5 +1,6 @@
 package net.iessochoa.hectormanuelgelardosabater.practica5.ui
 
+import ViewModel.AppViewModel
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,9 +12,13 @@ import android.widget.ArrayAdapter
 import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updatePadding
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import model.Tarea
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
 import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentTareaBinding
 
@@ -23,6 +28,10 @@ import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentTa
 class TareaFragment : Fragment() {
 
     private var _binding: FragmentTareaBinding? = null
+    val args: TareaFragmentArgs by navArgs()
+    private val viewModel: AppViewModel by activityViewModels()
+    //será una tarea nueva si no hay argumento
+    val esNuevo by lazy { args.tarea==null }
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +49,7 @@ class TareaFragment : Fragment() {
             insets
         }
 
+
         //Iniciamos las funciones
         iniciaSpCategoria()
         iniciaSpPrioridad()
@@ -47,6 +57,72 @@ class TareaFragment : Fragment() {
         iniciaRgEstado()
         iniciaSbHoras()
 
+        iniciaFabGuardar()
+
+        //si es nueva tarea o es una edicion
+        if (esNuevo)//nueva tarea
+        //cambiamos el título de la ventana
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = "Nueva tarea"
+          else
+            iniciaTarea(args.tarea!!)
+    }
+
+    /**
+     * Carga los valores de la tarea a editar
+     */
+    private fun iniciaTarea(tarea: Tarea) {
+        binding.spCategoria.setSelection(tarea.categoria)
+        binding.spPrioridad.setSelection(tarea.prioridad)
+        binding.swPagado.isChecked = tarea.pagado
+        binding.rgEstado.check(
+            when (tarea.estado) {
+                0 -> R.id.rbAbierta
+                1 -> R.id.rbEnCurso
+                else -> R.id.rbCerrada
+            }
+        )
+        binding.sbHoras.progress = tarea.horasTrabajo
+        binding.rtbValoracion.rating = tarea.valoracionCliente
+        binding.etTecnico.setText(tarea.tecnico)
+        binding.etDescripcion.setText(tarea.descripcion)
+        //cambiamos el título
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Tarea ${tarea.id}"
+    }
+
+    private fun guardaTarea() {
+    //recuperamos los datos
+        val categoria=binding.spCategoria.selectedItemPosition
+        val prioridad=binding.spPrioridad.selectedItemPosition
+        val pagado=binding.swPagado.isChecked
+        val estado=when (binding.rgEstado.checkedRadioButtonId) {
+            R.id.rbAbierta -> 0
+            R.id.rbEnCurso -> 1
+            else -> 2
+        }
+        val horas=binding.sbHoras.progress
+        val valoracion=binding.rtbValoracion.rating
+        val tecnico=binding.etTecnico.text.toString()
+        val descripcion=binding.etDescripcion.text.toString()
+        //creamos la tarea: si es nueva, generamos un id, en otro caso le asignamos su id
+        val tarea = if(esNuevo)
+            Tarea(categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion)
+        else
+            Tarea(args.tarea!!.id,categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion)
+        //guardamos la tarea desde el viewmodel
+        viewModel.addTarea(tarea)
+        //salimos de editarFragment
+        findNavController().popBackStack()
+    }
+    private fun iniciaFabGuardar() {
+        binding.fabGuardar.setOnClickListener {
+            if (binding.etTecnico.text.toString().isEmpty() || binding.etTecnico.text.toString().isNullOrEmpty())
+                muestraMensajeError()
+             else
+            guardaTarea()
+        }
+    }
+    private fun muestraMensajeError() {
+        TODO("Los campos no pueden estar vacios")
     }
 
     private fun iniciaSpCategoria() {
