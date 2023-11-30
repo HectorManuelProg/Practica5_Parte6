@@ -110,7 +110,7 @@ object ModelTempTareas {
             3 -> tareas.filter { it.estado == 3 }
             else -> tareas
         }
-        tareasLiveData.value = estadosFiltrados
+        tareasLiveData.value = estadosFiltrados.toList()
         return tareasLiveData
     }
 }
