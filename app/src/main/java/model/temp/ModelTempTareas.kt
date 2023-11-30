@@ -15,6 +15,7 @@ object ModelTempTareas {
     //el context que suele ser necesario en acceso a datos
     private lateinit var application: Application
     //Permite iniciar el objeto Singleton
+
     operator fun invoke(context: Context) {
         this.application = context.applicationContext as Application
         iniciaPruebaTareas()
@@ -90,6 +91,18 @@ object ModelTempTareas {
             tareas.filter { !it.pagado } as ArrayList<Tarea>
         else
             tareas
+        return tareasLiveData
+    }
+   fun getTareasFiltroEstado(estado: Int): LiveData<List<Tarea>> {
+
+        val estadosFiltrados = when (estado) {
+            0 -> tareas.filter { it.estado == 0 }
+            1 -> tareas.filter { it.estado == 1 }
+            2 -> tareas.filter { it.estado == 2 }
+            3 -> tareas.filter { it.estado == 3 }
+            else -> tareas
+        }
+        tareasLiveData.value = estadosFiltrados
         return tareasLiveData
     }
 }

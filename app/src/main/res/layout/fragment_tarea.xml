@@ -119,13 +119,13 @@
             android:text="@string/abierta" />
 
         <RadioButton
-            android:id="@+id/rbEnCurso"
+            android:id="@+id/rgbEnCurso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/en_curso" />
 
         <RadioButton
-            android:id="@+id/rbCerrada"
+            android:id="@+id/rgbCerrada"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cerrada" />

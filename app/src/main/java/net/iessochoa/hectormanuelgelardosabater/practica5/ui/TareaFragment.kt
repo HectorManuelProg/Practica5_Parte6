@@ -9,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.RatingBar
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updatePadding
 import androidx.fragment.app.activityViewModels
@@ -77,8 +75,8 @@ class TareaFragment : Fragment() {
         binding.rgEstado.check(
             when (tarea.estado) {
                 0 -> R.id.rbAbierta
-                1 -> R.id.rbEnCurso
-                else -> R.id.rbCerrada
+                1 -> R.id.rgbEnCurso
+                else -> R.id.rgbCerrada
             }
         )
         binding.sbHoras.progress = tarea.horasTrabajo
@@ -96,7 +94,7 @@ class TareaFragment : Fragment() {
         val pagado=binding.swPagado.isChecked
         val estado=when (binding.rgEstado.checkedRadioButtonId) {
             R.id.rbAbierta -> 0
-            R.id.rbEnCurso -> 1
+            R.id.rgbEnCurso -> 1
             else -> 2
         }
         val horas=binding.sbHoras.progress
@@ -159,7 +157,7 @@ class TareaFragment : Fragment() {
             val imagen= when (checkedId){//el id del RadioButton seleccionado
                 //id del cada RadioButon
                 R.id.rbAbierta-> R.drawable.ic_abierto
-                R.id.rbEnCurso->R.drawable.ic_encurso
+                R.id.rgbEnCurso->R.drawable.ic_encurso
                 else-> R.drawable.ic_cerrado
             }
             binding.ivEstado.setImageResource(imagen)
