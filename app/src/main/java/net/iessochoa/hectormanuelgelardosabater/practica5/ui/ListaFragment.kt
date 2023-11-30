@@ -49,6 +49,7 @@ class ListaFragment : Fragment() {
             val action=ListaFragmentDirections.actionEditar(null)
             findNavController().navigate(action)
         }
+
         //para prueba, editamos una tarea aleatoria
         binding.btPruebaEdicion.setOnClickListener{
          //cogemos la lista actual de Tareas que tenemos en el ViewModel. No es lo más correcto
@@ -59,15 +60,25 @@ class ListaFragment : Fragment() {
             val action=ListaFragmentDirections.actionEditar(tarea)
             findNavController().navigate(action)
         }
+
+        iniciaFiltros()
+
+    }
+
+    private fun iniciaFiltros(){
+        binding.swSinPagar.setOnCheckedChangeListener( ) { _,isChecked->
+        //actualiza el LiveData SoloSinPagarLiveData que a su vez modifica tareasLiveData
+        //mediante el Transformation
+            viewModel.setSoloSinPagar(isChecked)}
     }
     private fun actualizaLista(lista: List<Tarea>?) {
         //creamos un string modificable
         val listaString = buildString {
             lista?.forEach() {
-//añadimos al final del string
+            //añadimos al final del string
                 append(
                     "${it.id}-${it.tecnico}-${
-//mostramos un trozo de la descripción
+                    //mostramos un trozo de la descripción
                         if (it.descripcion.length < 21) it.descripcion
                         else
                             it.descripcion.subSequence(0, 20)
