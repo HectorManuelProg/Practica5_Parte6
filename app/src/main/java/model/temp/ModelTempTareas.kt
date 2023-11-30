@@ -85,6 +85,14 @@ object ModelTempTareas {
         //actualizamos el LiveData
         tareasLiveData.value = tareas
     }
+    /**
+     * Varios filtros:
+     */
+   fun getTareasFiltroSinPagarEstado(soloSinPagar:Boolean, estado:Int): MutableLiveData<List<Tarea>> {
+       //devuelve el LiveData con la lista filtrada
+        tareasLiveData.value=tareas.filter { !it.pagado && it.estado==estado } as ArrayList<Tarea>
+        return tareasLiveData
+    }
     fun getTareasFiltroSinPagar(soloSinPagar:Boolean): LiveData<List<Tarea>> {
         //devuelve el LiveData con la lista filtrada o entera
         tareasLiveData.value=if(soloSinPagar)
@@ -93,7 +101,7 @@ object ModelTempTareas {
             tareas
         return tareasLiveData
     }
-   fun getTareasFiltroEstado(estado: Int): LiveData<List<Tarea>> {
+   fun getTareasFiltroEstado(estado: Int = 3): LiveData<List<Tarea>> {
 
         val estadosFiltrados = when (estado) {
             0 -> tareas.filter { it.estado == 0 }

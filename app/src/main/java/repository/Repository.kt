@@ -40,6 +40,7 @@ object Repository {
     fun addTarea(tarea: Tarea) = modelTareas.addTarea(tarea)
     fun delTarea(tarea: Tarea) = modelTareas.delTarea(tarea)
     fun getTareasFiltroEstado(estado: Int) = modelTareas.getTareasFiltroEstado(estado)
-
+    fun getTareasFiltroSinPagarEstado(soloSinPagar:Boolean, estado:Int)=
+        modelTareas.getTareasFiltroSinPagarEstado(soloSinPagar,estado)
     fun getAllTareas() = modelTareas.getAllTareas()
 }

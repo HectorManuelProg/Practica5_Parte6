@@ -68,20 +68,11 @@ class ListaFragment : Fragment() {
         //actualiza el LiveData SoloSinPagarLiveData que a su vez modifica tareasLiveData
         //mediante el Transformation
             viewModel.setSoloSinPagar(isChecked)}
-        //listener de radioGroup
-      /*  binding.rgEstado.setOnCheckedChangeListener { _, isChecked ->
-            when (isChecked) {//el id del RadioButton seleccionado
-                //id del cada RadioButon
-                R.id.rgbAbiertas -> viewModel.setEstado(0)
-                R.id.rgbEnCurso -> viewModel.setEstado(1)
-                R.id.rgbCerrada -> viewModel.setEstado(2)
-                R.id.rgbTodas -> viewModel.setEstado(3)
-            }
-        }*/
+
     }
-    private fun iniciaFiltrosEstado(lista: List<Tarea>?) {
-        //listener de radioGroup
-        binding.rgEstado.setOnCheckedChangeListener { _, isChecked ->
+    private fun iniciaFiltrosEstado() {
+       //listener de radioGroup
+        binding.rgEstado.setOnCheckedChangeListener { group, isChecked ->
             when (isChecked) {//el id del RadioButton seleccionado
                 //id del cada RadioButon
                 R.id.rgbAbiertas -> viewModel.setEstado(0)
@@ -89,8 +80,8 @@ class ListaFragment : Fragment() {
                 R.id.rgbCerrada -> viewModel.setEstado(2)
                 R.id.rgbTodas -> viewModel.setEstado(3)
             }
+            viewModel.setEstado(isChecked)
         }
-        binding.tvListaTareas.setText()
     }
 
     private fun actualizaLista(lista: List<Tarea>?) {
