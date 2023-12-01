@@ -92,7 +92,7 @@ class TareaFragment : Fragment() {
         val categoria=binding.spCategoria.selectedItemPosition
         val prioridad=binding.spPrioridad.selectedItemPosition
         val pagado=binding.swPagado.isChecked
-        val estado=when (binding.rgEstado.checkedRadioButtonId) {
+        val estado = when (binding.rgEstado.checkedRadioButtonId) {
             R.id.rbAbierta -> 0
             R.id.rgbEnCurso -> 1
             else -> 2

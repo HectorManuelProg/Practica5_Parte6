@@ -72,7 +72,7 @@ class ListaFragment : Fragment() {
     }
     private fun iniciaFiltrosEstado() {
         //listener de radioGroup
-        binding.rgEstado.setOnCheckedChangeListener { _, checkedId ->
+        binding.rgFiltrarEstado.setOnCheckedChangeListener { _, checkedId ->
             val estado = when (checkedId) {
                 // IDs de cada RadioButton
                 R.id.rgbAbiertas -> 0 // Abierta
@@ -83,7 +83,7 @@ class ListaFragment : Fragment() {
             viewModel.setEstado(estado)
         }
         //iniciamos a abierto
-        binding.rgEstado.check(R.id.rbAbierta)
+        binding.rgFiltrarEstado.check(R.id.rbAbierta)
     }
 
     private fun actualizaLista(lista: List<Tarea>?) {
