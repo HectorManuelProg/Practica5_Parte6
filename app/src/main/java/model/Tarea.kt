@@ -16,6 +16,7 @@ val tecnico:String,
 val descripcion:String
 ):Parcelable
 {
+
     //segundo constructor que genera id nuevo
     constructor( categoria:Int,
                  prioridad:Int,

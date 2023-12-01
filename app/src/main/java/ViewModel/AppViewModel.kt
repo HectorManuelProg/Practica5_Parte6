@@ -16,7 +16,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val repositorio:Repository
     //liveData de lista de tareas
     var tareasLiveData :LiveData<List<Tarea>>
-    private val estadoLiveData = MutableLiveData<Int>(3)
+    //private val estadoLiveData = MutableLiveData<Int>(3)
     //LiveData que cuando se modifique un filtro cambia el tareasLiveData
     val SOLO_SIN_PAGAR="SOLO_SIN_PAGAR"
     val ESTADO="ESTADO"
@@ -37,14 +37,14 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         tareasLiveData=filtrosLiveData.switchMap{ mapFiltro ->
             val aplicarSinPagar = mapFiltro!![SOLO_SIN_PAGAR] as Boolean
             val estado = mapFiltro!![ESTADO] as Int
-//Devuelve el resultado del when
+            //Devuelve el resultado del when
             when {//trae toda la lista de tareas
                 (!aplicarSinPagar && (estado == 3)) ->
                     repositorio.getAllTareas()
-//Sólo filtra por ESTADO
+                //Sólo filtra por ESTADO
                 (!aplicarSinPagar && (estado != 3)) ->
                     repositorio.getTareasFiltroEstado(estado)
-//Sólo filtra SINPAGAR
+                //Sólo filtra SINPAGAR
                 (aplicarSinPagar && (estado == 3)) ->
                     repositorio.getTareasFiltroSinPagar(
                         aplicarSinPagar
