@@ -113,9 +113,11 @@ class TareaFragment : Fragment() {
     }
     private fun iniciaFabGuardar() {
         binding.fabGuardar.setOnClickListener {
-            if (binding.etTecnico.text.toString().isEmpty() || binding.etDescripcion.text.toString().isEmpty())
-                muestraMensajeError()
-             else
+            if (binding.etTecnico.text.toString().isEmpty() || binding.etDescripcion.text.toString().isEmpty()){
+               // muestraMensajeError()
+                val mensaje = "Los campos no pueden estar vacios"
+                Snackbar.make(binding.root,mensaje,Snackbar.LENGTH_LONG).setAction("Action",null).show()
+            } else
             guardaTarea()
         }
     }
