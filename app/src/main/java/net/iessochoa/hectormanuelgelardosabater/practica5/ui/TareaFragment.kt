@@ -113,7 +113,7 @@ class TareaFragment : Fragment() {
     }
     private fun iniciaFabGuardar() {
         binding.fabGuardar.setOnClickListener {
-            if (binding.etTecnico.text.toString().isEmpty() || binding.etTecnico.text.toString().isNullOrEmpty())
+            if (binding.etTecnico.text.toString().isEmpty() || binding.etDescripcion.text.toString().isEmpty())
                 muestraMensajeError()
              else
             guardaTarea()
