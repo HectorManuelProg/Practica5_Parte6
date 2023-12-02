@@ -121,9 +121,6 @@ class TareaFragment : Fragment() {
             guardaTarea()
         }
     }
-    private fun muestraMensajeError() {
-        TODO("Los campos no pueden estar vacios")
-    }
 
     private fun iniciaSpCategoria() {
         ArrayAdapter.createFromResource(
