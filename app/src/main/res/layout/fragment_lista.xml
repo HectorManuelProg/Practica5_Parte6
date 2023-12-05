@@ -17,33 +17,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/tvListaTareas"
-        android:layout_width="410dp"
-        android:layout_height="536dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textColor="@color/md_theme_dark_onBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgFiltrarEstado"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/btPruebaEdicion"
-        android:layout_width="204dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/design_default_color_primary_variant"
-        android:text="Prueba Edicion"
-        android:textAlignment="center"
-        android:textColor="@color/md_theme_light_inverseOnSurface"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Switch
         android:id="@+id/swSinPagar"
         android:layout_width="wrap_content"
@@ -91,5 +64,15 @@
                 android:text="@string/todas" />
 
     </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTareas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgFiltrarEstado"
+        tools:listitem="@layout/item_tarea" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

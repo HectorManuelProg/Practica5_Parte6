@@ -51,7 +51,7 @@ class ListaFragment : Fragment() {
         }
 
         //para prueba, editamos una tarea aleatoria
-        binding.btPruebaEdicion.setOnClickListener{
+     /*   binding.btPruebaEdicion.setOnClickListener{
         //cogemos la lista actual de Tareas que tenemos en el ViewModel. No es lo más correcto
             val lista= viewModel.tareasLiveData.value
         //buscamos una tarea aleatoriamente
@@ -59,7 +59,7 @@ class ListaFragment : Fragment() {
         //se la enviamos a TareaFragment para su edición
             val action=ListaFragmentDirections.actionEditar(tarea)
             findNavController().navigate(action)
-        }
+        }*/
 
     }
 
@@ -108,7 +108,7 @@ class ListaFragment : Fragment() {
                 )
             }
         }
-        binding.tvListaTareas.setText(listaString)
+       // binding.tvListaTareas.setText(listaString)
     }
     override fun onDestroyView() {
         super.onDestroyView()
