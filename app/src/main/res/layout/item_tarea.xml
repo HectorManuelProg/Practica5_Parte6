@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cvItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvDescripcion"
+            android:layout_width="302dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toStartOf="@+id/tvId"
+            app:layout_constraintStart_toEndOf="@+id/ivEstado"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Texto te prueba" />
+
+        <TextView
+            android:id="@+id/tvId"
+            android:layout_width="31dp"
+            android:layout_height="32dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="8dp"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/tvTecnico"
+            android:layout_width="129dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="32dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rbValoracion"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescripcion" />
+
+        <RatingBar
+            android:id="@+id/rbValoracion"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="125dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescripcion"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/ivEstado"
+            android:layout_width="40dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/rbValoracion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_abierto" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toEndOf="@+id/tvTecnico"
+            app:layout_constraintTop_toBottomOf="@+id/tvId"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
