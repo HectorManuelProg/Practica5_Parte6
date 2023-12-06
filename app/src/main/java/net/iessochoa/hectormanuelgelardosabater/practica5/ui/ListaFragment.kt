@@ -1,6 +1,8 @@
 package net.iessochoa.hectormanuelgelardosabater.practica5.ui
 
 import ViewModel.AppViewModel
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -52,8 +54,25 @@ class ListaFragment : Fragment() {
         viewModel.tareasLiveData.observe(viewLifecycleOwner, Observer<List<Tarea>> { lista ->
             actualizaLista(lista)
         })
+    }
 
-
+    fun borrarTarea(tarea:Tarea){
+        AlertDialog.Builder(activity as Context)
+            .setTitle(getString(R.string.atencion))
+            //recuerda: todo el texto en string.xml
+            .setMessage("Desea borrar la Tarea ${tarea.id}?")
+            //acción si pulsa si
+            .setPositiveButton(getString(R.string.aceptar)){v,_->
+                //borramos la tarea
+                viewModel.delTarea(tarea)
+                //cerramos el dialogo
+                v.dismiss()
+            }
+             //accion si pulsa no
+            .setNegativeButton(getString(R.string.cancelar)){v,_->v.dismiss()}
+            .setCancelable(false)
+            .create()
+            .show()
     }
     private fun iniciaCRUD(){
         binding.fabNuevo.setOnClickListener {
@@ -73,6 +92,7 @@ class ListaFragment : Fragment() {
             override fun onTareaBorrarClick(tarea: Tarea?) {
                 //borramos directamente la tarea
                 viewModel.delTarea(tarea!!)
+                borrarTarea(tarea!!)
             }
         }
     }
