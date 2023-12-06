@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp"
+    app:cardBackgroundColor="#5FCAF4"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,8 +40,8 @@
 
         <TextView
             android:id="@+id/tvTecnico"
-            android:layout_width="129dp"
-            android:layout_height="26dp"
+            android:layout_width="168dp"
+            android:layout_height="32dp"
             android:layout_marginStart="32dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +51,7 @@
         <RatingBar
             android:id="@+id/rbValoracion"
             style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="85dp"
+            android:layout_width="81dp"
             android:layout_height="22dp"
             android:layout_marginStart="56dp"
             android:layout_marginTop="8dp"
@@ -74,8 +75,8 @@
             android:id="@+id/ivBorrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@+id/tvTecnico"
             app:layout_constraintTop_toBottomOf="@+id/tvId"
             app:srcCompat="@android:drawable/ic_menu_delete" />

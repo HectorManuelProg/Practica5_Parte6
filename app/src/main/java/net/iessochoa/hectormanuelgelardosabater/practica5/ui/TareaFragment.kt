@@ -47,7 +47,6 @@ class TareaFragment : Fragment() {
             insets
         }
 
-
         //Iniciamos las funciones
         iniciaSpCategoria()
         iniciaSpPrioridad()
