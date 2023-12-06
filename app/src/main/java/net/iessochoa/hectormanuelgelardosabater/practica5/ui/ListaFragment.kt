@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import model.Tarea
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
 import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentListaBinding
+import net.iessochoa.hectormanuelgelardosabater.practica5.ui.adapters.TareasAdapter
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -21,6 +23,7 @@ class ListaFragment : Fragment() {
 
     private var _binding: FragmentListaBinding? = null
     private val viewModel: AppViewModel by activityViewModels()
+    lateinit var tareasAdapter: TareasAdapter
 
 
     // This property is only valid between onCreateView and
@@ -38,7 +41,11 @@ class ListaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        iniciaRecyclerView()
+        viewModel.tareasLiveData.observe(viewLifecycleOwner, Observer<List<Tarea>> { lista ->
+                //actualizaLista(lista)
+                tareasAdapter.setLista(lista)
+            })
         iniciaFiltros()
         iniciaFiltrosEstado()
         viewModel.tareasLiveData.observe(viewLifecycleOwner, Observer<List<Tarea>> { lista ->
@@ -50,17 +57,17 @@ class ListaFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        //para prueba, editamos una tarea aleatoria
-     /*   binding.btPruebaEdicion.setOnClickListener{
-        //cogemos la lista actual de Tareas que tenemos en el ViewModel. No es lo más correcto
-            val lista= viewModel.tareasLiveData.value
-        //buscamos una tarea aleatoriamente
-            val tarea=lista?.get((0..lista.lastIndex).random())
-        //se la enviamos a TareaFragment para su edición
-            val action=ListaFragmentDirections.actionEditar(tarea)
-            findNavController().navigate(action)
-        }*/
+    }
 
+    private fun iniciaRecyclerView() {
+        //creamos el adaptador
+        tareasAdapter = TareasAdapter()
+        with(binding.rvTareas) {
+        //Creamos el layoutManager
+            layoutManager = LinearLayoutManager(activity)
+            //le asignamos el adaptador
+            adapter = tareasAdapter
+        }
     }
 
     private fun iniciaFiltros(){
