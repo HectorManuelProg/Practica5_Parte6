@@ -10,6 +10,7 @@ import net.iessochoa.hectormanuelgelardosabater.practica5.R
 class TareasAdapter():
     RecyclerView.Adapter<TareasAdapter.TareaViewHolder>() {
     var listaTareas: List<Tarea>? = null
+    var onTareaClickListener:OnTareaClickListener?=null
     fun setLista(lista: List<Tarea>) {
         listaTareas = lista
         //notifica al adaptador que hay cambios y tiene que redibujar el ReciclerView
@@ -17,7 +18,22 @@ class TareasAdapter():
     }
 
     inner class TareaViewHolder(val binding: ItemTareaBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root){
+        init {
+            //inicio del click de icono borrar
+            binding.ivBorrar.setOnClickListener(){
+            //recuperamos la tarea de la lista
+                val tarea=listaTareas.get(this.adapterPosition)
+                //llamamos al evento borrar que estará definido en el fragment
+                onTareaClickListener?.onTareaBorrarClick(tarea)
+            }
+            //inicio del click sobre el Layout(constraintlayout)
+            binding.root.setOnClickListener(){
+                val tarea=listaTareas.get(this.adapterPosition)
+                onTareaClickListener?.onTareaClick(tarea)
+            }
+        }
+        }
 
 
 //tamaño de la lista
@@ -56,5 +72,11 @@ override fun getItemCount(): Int = listaTareas?.size?:0
                 )
             }
         }
+    }
+    interface OnTareaClickListener{
+        //editar tarea que contiene el ViewHolder
+        fun onTareaClick(tarea:Tarea?)
+        //borrar tarea que contiene el ViewHolder
+        fun onTareaBorrarClick(tarea:Tarea?)
     }
 }
