@@ -42,6 +42,7 @@ class ListaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         iniciaRecyclerView()
+        iniciaCRUD()
         viewModel.tareasLiveData.observe(viewLifecycleOwner, Observer<List<Tarea>> { lista ->
                 //actualizaLista(lista)
                 tareasAdapter.setLista(lista)
@@ -51,12 +52,29 @@ class ListaFragment : Fragment() {
         viewModel.tareasLiveData.observe(viewLifecycleOwner, Observer<List<Tarea>> { lista ->
             actualizaLista(lista)
         })
+
+
+    }
+    private fun iniciaCRUD(){
         binding.fabNuevo.setOnClickListener {
-        //creamos acción enviamos argumento nulo porque queremos crear NuevaTarea
+            //creamos acción enviamos argumento nulo porque queremos crear NuevaTarea
             val action=ListaFragmentDirections.actionEditar(null)
             findNavController().navigate(action)
         }
-
+        tareasAdapter.onTareaClickListener = object :
+            TareasAdapter.OnTareaClickListener {
+            //**************Editar Tarea*************
+            override fun onTareaClick(tarea: Tarea?) {
+                //creamos la acción y enviamos como argumento la tarea para editarla
+                val action = ListaFragmentDirections.actionEditar(tarea)
+                findNavController().navigate(action)
+            }
+            //***********Borrar Tarea************
+            override fun onTareaBorrarClick(tarea: Tarea?) {
+                //borramos directamente la tarea
+                viewModel.delTarea(tarea!!)
+            }
+        }
     }
 
     private fun iniciaRecyclerView() {

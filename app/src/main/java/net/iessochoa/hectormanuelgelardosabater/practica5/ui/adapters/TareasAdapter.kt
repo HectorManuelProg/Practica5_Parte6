@@ -23,17 +23,17 @@ class TareasAdapter():
             //inicio del click de icono borrar
             binding.ivBorrar.setOnClickListener(){
             //recuperamos la tarea de la lista
-                val tarea=listaTareas.get(this.adapterPosition)
-                //llamamos al evento borrar que estará definido en el fragment
+                val tarea=listaTareas?.get(this.adapterPosition)
+            //llamamos al evento borrar que estará definido en el fragment
                 onTareaClickListener?.onTareaBorrarClick(tarea)
             }
-            //inicio del click sobre el Layout(constraintlayout)
+             //inicio del click sobre el Layout(constraintlayout)
             binding.root.setOnClickListener(){
-                val tarea=listaTareas.get(this.adapterPosition)
+                val tarea=listaTareas?.get(this.adapterPosition)
                 onTareaClickListener?.onTareaClick(tarea)
             }
         }
-        }
+    }
 
 
 //tamaño de la lista

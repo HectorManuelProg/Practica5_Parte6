@@ -50,8 +50,8 @@
         <RatingBar
             android:id="@+id/rbValoracion"
             style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="125dp"
-            android:layout_height="19dp"
+            android:layout_width="85dp"
+            android:layout_height="22dp"
             android:layout_marginStart="56dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -71,11 +71,11 @@
             app:srcCompat="@drawable/ic_abierto" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/ivBorrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@+id/tvTecnico"
             app:layout_constraintTop_toBottomOf="@+id/tvId"
             app:srcCompat="@android:drawable/ic_menu_delete" />
