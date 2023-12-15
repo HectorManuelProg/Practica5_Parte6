@@ -27,7 +27,6 @@ class ListaFragment : Fragment() {
     private val viewModel: AppViewModel by activityViewModels()
     lateinit var tareasAdapter: TareasAdapter
 
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
