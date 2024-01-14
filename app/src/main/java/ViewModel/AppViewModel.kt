@@ -6,6 +6,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import model.Tarea
 import repository.Repository
 
@@ -59,7 +62,9 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
      */
     //fun setSoloSinPagar(soloSinPagar:Boolean){soloSinPagarLiveData.value=soloSinPagar}
     fun addTarea(tarea: Tarea) = repositorio.addTarea(tarea)
-    fun delTarea(tarea: Tarea) = repositorio.delTarea(tarea)
+    //lanzamos el borrado por corrutina
+    fun delTarea(tarea: Tarea) = viewModelScope.launch(Dispatchers.IO){
+        Repository.delTarea(tarea)}
     //fun setEstado(estado: Int){estadoLiveData.value=estado}
 
     /**

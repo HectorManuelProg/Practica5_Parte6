@@ -51,10 +51,11 @@ object ModelTempTareas {
      * Borra una tarea y actualiza el LiveData
      * para avisar a los observadores
      */
-    fun delTarea(tarea: Tarea) {
-        Thread.sleep(50000)
+    suspend fun delTarea(tarea: Tarea) {
+       // Thread.sleep(50000)
         tareas.remove(tarea)
-        tareasLiveData.value = tareas
+        //tareasLiveData.value = tareas
+        tareasLiveData.postValue(tareas)
     }
 
     /**
