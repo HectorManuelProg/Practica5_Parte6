@@ -58,4 +58,7 @@ dependencies {
     implementation ("androidx.activity:activity-ktx:1.8.0")
     // LiveData
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    //corrutinas
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core: 1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android: 1.7.3")
 }
