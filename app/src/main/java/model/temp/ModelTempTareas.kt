@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import model.Tarea
 import kotlin.random.Random
 
@@ -18,7 +20,9 @@ object ModelTempTareas {
 
     operator fun invoke(context: Context) {
         this.application = context.applicationContext as Application
-        iniciaPruebaTareas()
+        //iniciaPruebaTareas()
+        //Lanzamos una corrutina
+        GlobalScope.launch { iniciaPruebaTareas() }
     }
 
     /**
@@ -52,7 +56,7 @@ object ModelTempTareas {
      * para avisar a los observadores
      */
     suspend fun delTarea(tarea: Tarea) {
-       // Thread.sleep(50000)
+        //Thread.sleep(100000)
         tareas.remove(tarea)
         //tareasLiveData.value = tareas
         tareasLiveData.postValue(tareas)
@@ -61,7 +65,7 @@ object ModelTempTareas {
     /**
      * Crea unas Tareas de prueba de forma aleatoria.
      */
-    fun iniciaPruebaTareas() {
+    suspend fun iniciaPruebaTareas() {
         val tecnicos = listOf(
             "Pepe Gotero",
             "Sacarino Pómez",
@@ -85,7 +89,7 @@ object ModelTempTareas {
             tareas.add(tarea)
         })
         //actualizamos el LiveData
-        tareasLiveData.value = tareas
+        tareasLiveData.postValue(tareas)
     }
     /**
      * Varios filtros:
