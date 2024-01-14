@@ -61,7 +61,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
      * activa el LiveData del filtro
      */
     //fun setSoloSinPagar(soloSinPagar:Boolean){soloSinPagarLiveData.value=soloSinPagar}
-    fun addTarea(tarea: Tarea) = repositorio.addTarea(tarea)
+    fun addTarea(tarea: Tarea) = viewModelScope.launch(Dispatchers.IO) {
+        Repository.addTarea(tarea)}
     //lanzamos el borrado por corrutina
     fun delTarea(tarea: Tarea) = viewModelScope.launch(Dispatchers.IO){
         Repository.delTarea(tarea)}
