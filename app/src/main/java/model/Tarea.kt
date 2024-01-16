@@ -1,10 +1,13 @@
 package model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
-
+@Entity(tableName = "tareas")
 @Parcelize
 data class Tarea(
+    @PrimaryKey(autoGenerate = true)
     var id:Long?=null,//id único
     val categoria:Int,
     val prioridad:Int,
@@ -25,7 +28,7 @@ data class Tarea(
                  horasTrabajo:Int,
                  valoracionCliente:Float,
                  tecnico:String,
-                 descripcion:String):this(generateId(),categoria,prioridad,pagado,estado,horasTrabajo,valoracionCliente, tecnico, descripcion)
+                 descripcion:String):this(null,categoria,prioridad,pagado,estado,horasTrabajo,valoracionCliente, tecnico, descripcion)
     {}
 
     companion object {
