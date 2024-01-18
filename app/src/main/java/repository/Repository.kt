@@ -20,7 +20,7 @@ object Repository {
         this.application = context.applicationContext as Application
         //iniciamos el modelo
         //ModelTempTareas(application)
-       // modelTareas = ModelTempTareas
+        //modelTareas = ModelTempTareas
         // iniciamos BD
        modelTareas = TareasDataBase.getDatabase(application).tareasDao()
     }

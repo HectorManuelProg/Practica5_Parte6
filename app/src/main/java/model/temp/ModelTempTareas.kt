@@ -29,8 +29,7 @@ object ModelTempTareas {
      * devuelve un LiveData en vez de MutableLiveData
     para evitar su modificación en las capas superiores
      */
-    fun getAllTareas(): LiveData<List<Tarea>> {
-        tareasLiveData.value= tareas
+    fun getAllTareas(): LiveData<List<Tarea>> { tareasLiveData.value= tareas
         return tareasLiveData
     }
 
@@ -56,7 +55,7 @@ object ModelTempTareas {
      * para avisar a los observadores
      */
     suspend fun delTarea(tarea: Tarea) {
-        //Thread.sleep(100000)
+       // Thread.sleep(50000)
         tareas.remove(tarea)
         //tareasLiveData.value = tareas
         tareasLiveData.postValue(tareas)
