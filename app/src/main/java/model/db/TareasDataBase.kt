@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import model.Tarea
 
-class TareasDataBase {
+
     @Database(entities = arrayOf(Tarea::class), version = 1, exportSchema = false)
     public abstract class TareasDataBase : RoomDatabase() {
         abstract fun tareasDao(): TareasDao
@@ -32,4 +32,3 @@ class TareasDataBase {
             }
         }
     }
-}

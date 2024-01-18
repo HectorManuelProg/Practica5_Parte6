@@ -56,7 +56,7 @@ object ModelTempTareas {
      * para avisar a los observadores
      */
     suspend fun delTarea(tarea: Tarea) {
-        //Thread.sleep(100000)
+       // Thread.sleep(50000)
         tareas.remove(tarea)
         //tareasLiveData.value = tareas
         tareasLiveData.postValue(tareas)
