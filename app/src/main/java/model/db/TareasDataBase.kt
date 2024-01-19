@@ -11,6 +11,7 @@ import model.Tarea
 import java.time.chrono.HijrahChronology.INSTANCE
 import kotlin.random.Random
 
+
 @Database(entities = arrayOf(Tarea::class), version = 1, exportSchema = false)
     public abstract class TareasDataBase : RoomDatabase() {
         abstract fun tareasDao(): TareasDao
