@@ -16,7 +16,7 @@ interface TareasDao {
     suspend fun delTarea(tarea: Tarea)
     @Query("SELECT * FROM tareas ")
     fun getAllTareas(): LiveData<List<Tarea>>
-    @Query("SELECT * FROM tareas WHERE pagado= :soloSinPagar")
+    @Query("SELECT * FROM tareas WHERE pagado!= :soloSinPagar")
     fun getTareasFiltroSinPagar(soloSinPagar:Boolean):LiveData<List<Tarea>>
     @Query("SELECT * FROM tareas WHERE estado= :estado")
     fun getTareasFiltroEstado(estado:Int):LiveData<List<Tarea>>
