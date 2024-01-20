@@ -5,7 +5,6 @@ import android.content.Context
 import model.Tarea
 import model.db.TareasDao
 import model.db.TareasDataBase
-import model.temp.ModelTempTareas
 
 object Repository {
     //instancia al modelo
@@ -31,4 +30,8 @@ object Repository {
     fun getTareasFiltroEstado(estado: Int) = modelTareas.getTareasFiltroEstado(estado)
     fun getTareasFiltroSinPagarEstado(soloSinPagar:Boolean, estado:Int)= modelTareas.getTareasFiltroSinPagarEstado(soloSinPagar,estado)
     fun getAllTareas() = modelTareas.getAllTareas()
+    fun getTareasFiltroPrioridad(prioridad: Int) = modelTareas.getTareasFiltroPrioridad(prioridad)
+    fun getTareasFiltroEstadoPrioridad(estado: Int, prioridad: Int) = modelTareas.getTareasFiltroEstadoPrioridad(estado, prioridad)
+    fun getTareasFiltroSinPagarPrioridadEstado(soloSinPagar:Boolean, estado:Int, prioridad:Int)= modelTareas.getTareasFiltroSinPagarPrioridadEstado(soloSinPagar,estado, prioridad)
+    fun getTareasFiltroSinPagarPrioridad(soloSinPagar: Boolean, prioridad: Int, estado: Int)= modelTareas.getTareasFiltroSinPagarPrioridad(soloSinPagar, prioridad)
 }
