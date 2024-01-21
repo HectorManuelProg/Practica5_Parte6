@@ -26,7 +26,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val filtrosLiveData by lazy {//inicio tardío
         val mutableMap = mutableMapOf<String, Any?>(
             SOLO_SIN_PAGAR to false,
-            ESTADO to 3
+            ESTADO to 3,
+            PRIORIDAD to 3
         )
         MutableLiveData(mutableMap)
     }

@@ -3,11 +3,15 @@ package net.iessochoa.hectormanuelgelardosabater.practica5.ui
 import ViewModel.AppViewModel
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -16,6 +20,12 @@ import model.Tarea
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
 import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentListaBinding
 import net.iessochoa.hectormanuelgelardosabater.practica5.ui.adapters.TareasAdapter
+
+
+private val FragmentListaBinding.clytTarea: Any
+    get() {
+        TODO("Not yet implemented")
+    }
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -50,6 +60,7 @@ class ListaFragment : Fragment() {
             })
         iniciaFiltros()
         iniciaFiltrosEstado()
+        iniciaSpPrioridad()
         viewModel.tareasLiveData.observe(viewLifecycleOwner, Observer<List<Tarea>> { lista ->
             actualizaLista(lista)
         })
@@ -78,6 +89,34 @@ class ListaFragment : Fragment() {
                 // Lógica cuando se hace clic en el icono de estado de la tarea
             }
         }
+    }
+    private fun iniciaSpPrioridad() {
+        ArrayAdapter.createFromResource(
+            //contexto suele ser la Activity
+            requireContext(),
+            //array de strings
+            R.array.prioridad,
+            //layout para mostrar el elemento seleccionado
+            R.layout.spinner_items).also { adapter ->
+            // Layout para mostrar la apariencia de la lista
+            adapter.setDropDownViewResource(R.layout.spinner_items)
+            // asignamos el adaptador al spinner
+            binding.spPrioridad.adapter = adapter
+            binding.spPrioridad.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(p0: AdapterView<*>?, v: View?, posicion: Int, id: Long) {
+//el array son 3 elementos y "alta" ocupa la tercera posición
+                    if(posicion==2){
+                        binding.clytTarea.setBackgroundColor(requireContext().getColor(R.color.prioridad_alta))
+                    }else{//si no es prioridad alta quitamos el color
+                        binding.clytTarea.setBackgroundColor(Color.TRANSPARENT)
+                    }
+                }
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    binding.clytTarea.setBackgroundColor(Color.TRANSPARENT)
+                }
+            }
+        }
+
     }
     fun borrarTarea(tarea:Tarea){
         AlertDialog.Builder(activity as Context)
@@ -160,4 +199,10 @@ class ListaFragment : Fragment() {
         _binding = null
     }
 }
+
+private fun Any.setBackgroundColor(color: Int) {
+
+}
+
+
 

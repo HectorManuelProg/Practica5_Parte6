@@ -80,12 +80,15 @@
         android:id="@+id/spPrioridad"
         android:layout_width="257dp"
         android:layout_height="27dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@color/md_theme_dark_onPrimaryContainer"
         android:backgroundTint="@color/md_theme_dark_onPrimaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="8dp" />
+        app:layout_constraintStart_toEndOf="@id/swSinPagar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
