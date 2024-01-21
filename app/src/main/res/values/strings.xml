@@ -21,7 +21,10 @@
         <item>Baja</item>
         <item>Media</item>
         <item>Alta</item>
+        <item>Todas</item>
     </string-array>
+
+
 
     <string name="abierta">Abierta</string>
     <string name="en_curso">En curso</string>

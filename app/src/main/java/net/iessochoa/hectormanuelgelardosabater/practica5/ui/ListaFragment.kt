@@ -21,12 +21,6 @@ import net.iessochoa.hectormanuelgelardosabater.practica5.R
 import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentListaBinding
 import net.iessochoa.hectormanuelgelardosabater.practica5.ui.adapters.TareasAdapter
 
-
-private val FragmentListaBinding.clytTarea: Any
-    get() {
-        TODO("Not yet implemented")
-    }
-
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
@@ -63,6 +57,10 @@ class ListaFragment : Fragment() {
         iniciaSpPrioridad()
         viewModel.tareasLiveData.observe(viewLifecycleOwner, Observer<List<Tarea>> { lista ->
             actualizaLista(lista)
+        })
+        viewModel.tareasLiveData.observe(viewLifecycleOwner, Observer<List<Tarea>> { listaFiltrada ->
+            // Actualizar el RecyclerView con la nueva lista filtrada
+            actualizaLista(listaFiltrada)
         })
     }
     private fun iniciaCRUD(){
@@ -102,21 +100,14 @@ class ListaFragment : Fragment() {
             adapter.setDropDownViewResource(R.layout.spinner_items)
             // asignamos el adaptador al spinner
             binding.spPrioridad.adapter = adapter
-            binding.spPrioridad.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+            binding.spPrioridad.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, v: View?, posicion: Int, id: Long) {
-//el array son 3 elementos y "alta" ocupa la tercera posición
-                    if(posicion==2){
-                        binding.clytTarea.setBackgroundColor(requireContext().getColor(R.color.prioridad_alta))
-                    }else{//si no es prioridad alta quitamos el color
-                        binding.clytTarea.setBackgroundColor(Color.TRANSPARENT)
-                    }
+                    viewModel.setPrioridad(posicion)
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) {
-                    binding.clytTarea.setBackgroundColor(Color.TRANSPARENT)
                 }
             }
         }
-
     }
     fun borrarTarea(tarea:Tarea){
         AlertDialog.Builder(activity as Context)

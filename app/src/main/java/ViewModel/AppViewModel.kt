@@ -102,11 +102,16 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 //activamos el LiveData
         filtrosLiveData.value = mapa
     }
-    fun setPrioridad(prioridad: Int){
-        val mapa = filtrosLiveData.value
-        mapa!![PRIORIDAD] = prioridad
+
+    fun setPrioridad(prioridad: Int) {
+        // Recuperamos el map
+        val mapa = filtrosLiveData.value?.toMutableMap()
+        // Modificamos el filtro
+        mapa?.set(PRIORIDAD, prioridad)
+        // Activamos el LiveData
         filtrosLiveData.value = mapa
     }
+
     }
 
 
