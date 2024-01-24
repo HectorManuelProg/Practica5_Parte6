@@ -88,6 +88,7 @@ class ListaFragment : Fragment() {
             }
         }
     }
+
     private fun iniciaSpPrioridad() {
         ArrayAdapter.createFromResource(
             //contexto suele ser la Activity
