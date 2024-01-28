@@ -3,6 +3,7 @@ package net.iessochoa.hectormanuelgelardosabater.practica5.ui
 import ViewModel.AppViewModel
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import android.widget.Spinner
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import model.Tarea
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
@@ -24,10 +26,12 @@ import net.iessochoa.hectormanuelgelardosabater.practica5.ui.adapters.TareasAdap
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+class ListaFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeListener {
+    override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+        TODO("Not yet implemented")
+    }
 
-class ListaFragment : Fragment() {
-
-    private var _binding: FragmentListaBinding? = null
+private var _binding: FragmentListaBinding? = null
     private val viewModel: AppViewModel by activityViewModels()
     lateinit var tareasAdapter: TareasAdapter
 
@@ -35,6 +39,15 @@ class ListaFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+
+    override fun onResume() {
+        super.onResume()
+        PreferenceManager.getDefaultSharedPreferences(requireContext()).registerOnSharedPreferenceChangeListener(this)
+    }
+    override fun onPause() {
+        super.onPause()
+        PreferenceManager.getDefaultSharedPreferences(requireContext()).unregisterOnSharedPreferenceChangeListener(this)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,6 +102,15 @@ class ListaFragment : Fragment() {
         }
     }
 
+    private fun obtenColorPreferencias():Int{
+        //cogemos el primer color si no hay ninguno seleccionado
+        val colorPorDefecto=resources.getStringArray(R.array.color_values)[0]
+        //recuperamos el color actual
+        val color= PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(MainActivity.PREF_COLOR_PRIORIDAD,
+            colorPorDefecto)
+        return Color.parseColor(color)
+    }
+
     private fun iniciaSpPrioridad() {
         ArrayAdapter.createFromResource(
             //contexto suele ser la Activity
@@ -131,6 +153,7 @@ class ListaFragment : Fragment() {
     private fun iniciaRecyclerView() {
         //creamos el adaptador
         tareasAdapter = TareasAdapter()
+        tareasAdapter.colorPrioridadAlta=obtenColorPreferencias()
         with(binding.rvTareas) {
         //Creamos el layoutManager
             layoutManager = LinearLayoutManager(activity)

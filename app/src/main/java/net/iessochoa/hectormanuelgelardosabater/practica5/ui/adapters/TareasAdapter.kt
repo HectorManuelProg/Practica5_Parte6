@@ -9,6 +9,7 @@ import net.iessochoa.hectormanuelgelardosabater.practica5.R
 
 class TareasAdapter():
     RecyclerView.Adapter<TareasAdapter.TareaViewHolder>() {
+    var colorPrioridadAlta :Int=Color.TRANSPARENT
     var listaTareas: List<Tarea>? = null
     var onTareaClickListener:OnTareaClickListener?=null
     private var ABIERTA = 0
@@ -83,14 +84,18 @@ override fun getItemCount(): Int = listaTareas?.size?:0
                     }
                 )
                 //cambiamos el color de fondo si la prioridad es alta
-                binding.cvItem.setBackgroundResource(
+                binding.cvItem.setBackgroundColor(
                     if (prioridad == 2)//prioridad alta
-                        R.color.prioridad_alta
+                        colorPrioridadAlta
                     else
                         Color.TRANSPARENT
                 )
             }
         }
+    }
+    fun actualizaRecyclerColor(color:Int){
+        colorPrioridadAlta=color
+        notifyDataSetChanged()
     }
 
     interface OnTareaClickListener{
@@ -99,5 +104,6 @@ override fun getItemCount(): Int = listaTareas?.size?:0
         //borrar tarea que contiene el ViewHolder
         fun onTareaBorrarClick(tarea:Tarea?)
         fun onEstadoIconClick(tarea: Tarea?)
+
     }
 }
