@@ -15,6 +15,12 @@ import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.ActivityMa
 
 class MainActivity : AppCompatActivity() {
 
+    companion object{
+        val PREF_NOMBRE = "nombre"
+        val PREF_COLOR_PRIORIDAD = "color_prioridad"
+        val PREF_AVISO_NUEVAS = "aviso_nuevas"
+    }
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 

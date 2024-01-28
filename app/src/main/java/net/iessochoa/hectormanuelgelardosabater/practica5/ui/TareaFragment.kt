@@ -15,6 +15,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import model.Tarea
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
@@ -56,9 +57,11 @@ class TareaFragment : Fragment() {
         iniciaFabGuardar()
 
         //si es nueva tarea o es una edicion
-        if (esNuevo)//nueva tarea
+        if (esNuevo){//nueva tarea
         //cambiamos el título de la ventana
             (requireActivity() as AppCompatActivity).supportActionBar?.title = "Nueva tarea"
+        iniciaTecnico()
+    }
           else
             iniciaTarea(args.tarea!!)
     }
@@ -221,5 +224,14 @@ class TareaFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun iniciaTecnico(){
+        //recuperamos las preferencias
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(requireContext())
+        //recuperamos el nombre del usuario
+        val tecnico = sharedPreferences.getString(MainActivity.PREF_NOMBRE, "")
+        //lo asignamos
+        binding.etTecnico.setText(tecnico)
     }
 }
