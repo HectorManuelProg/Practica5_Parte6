@@ -39,7 +39,6 @@ private var _binding: FragmentListaBinding? = null
     // onDestroyView.
     private val binding get() = _binding!!
 
-
     override fun onResume() {
         super.onResume()
         PreferenceManager.getDefaultSharedPreferences(requireContext()).registerOnSharedPreferenceChangeListener(this)
