@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_prueba -> actionPrueba()
-            R.id.action_settings -> true
+            R.id.action_settings -> actionSettings()
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -56,6 +56,10 @@ class MainActivity : AppCompatActivity() {
     }
     fun actionPrueba():Boolean{
         Toast.makeText(this,"Prueba de menú", Toast.LENGTH_SHORT).show()
+        return true
+    }
+    private fun actionSettings(): Boolean {
+        findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.settingsFragment)
         return true
     }
 }

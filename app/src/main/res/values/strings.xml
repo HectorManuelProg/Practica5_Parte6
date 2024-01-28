@@ -36,6 +36,24 @@
     <string name="aceptar">Aceptar</string>
     <string name="cancelar">Cancelar</string>
 
+
+    <string name="datos_personales">Datos personales</string>
+    <string name="nombre">Nombre</string>
+    <string name="entorno">Entorno</string>
+    <string name="color_prioridad_alta">Color Prioridad Alta</string>
+
+    <string-array name="color_entries">
+        <item>Verde</item>
+        <item>Azul</item>
+        <item>Rojo</item>
+    </string-array>
+    <string-array name="color_values">
+        <item>#07FF28</item>
+        <item>#3B6CFF</item>
+        <item>#B60318</item>
+    </string-array>
+
+
     <string name="tecnico">Técnico</string>
 
     <string name="horas_trabajadas">Llevo %1$d horas trabajadas</string>
