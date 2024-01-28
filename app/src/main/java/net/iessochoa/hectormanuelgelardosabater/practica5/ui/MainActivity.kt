@@ -8,6 +8,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity() {
     }
     private fun actionSettings(): Boolean {
         findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.settingsFragment)
+        binding.icEnvio.visibility = View.INVISIBLE//ocultar el icono
         return true
+
     }
 }
