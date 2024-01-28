@@ -1,5 +1,6 @@
 package net.iessochoa.hectormanuelgelardosabater.practica5.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -64,9 +65,10 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this,"Prueba de menú", Toast.LENGTH_SHORT).show()
         return true
     }
+
     private fun actionSettings(): Boolean {
         findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.settingsFragment)
-        binding.icEnvio.visibility = View.INVISIBLE//ocultar el icono
+       binding.icEnvio.visibility = View.INVISIBLE//ocultar el icono
         return true
 
     }
