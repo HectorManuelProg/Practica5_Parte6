@@ -8,6 +8,18 @@
     android:background="@color/md_theme_dark_onSurface"
     tools:context=".ui.TareaFragment">
 
+    <ImageView
+        android:id="@+id/ivBuscarFoto"
+        android:layout_width="45dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="24dp"
+        android:src="@tools:sample/avatars"
+        app:layout_constraintEnd_toStartOf="@+id/ivFoto"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/swPagado"
+        app:layout_constraintTop_toBottomOf="@+id/spPrioridad"
+        app:srcCompat="@drawable/image_search" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabGuardar"
         android:layout_width="wrap_content"
@@ -104,7 +116,7 @@
 
     <RadioGroup
         android:id="@+id/rgEstado"
-        android:layout_width="275dp"
+        android:layout_width="258dp"
         android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
@@ -229,4 +241,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/ivFoto"
+        android:layout_width="104dp"
+        android:layout_height="103dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rgEstado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/rgEstado"
+        app:layout_constraintTop_toBottomOf="@+id/spPrioridad"
+        app:layout_constraintVertical_bias="0.0"
+        tools:src="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

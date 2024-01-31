@@ -8,7 +8,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.Tarea
-import java.time.chrono.HijrahChronology.INSTANCE
 import kotlin.random.Random
 
 @Database(entities = arrayOf(Tarea::class), version = 1, exportSchema = false)
@@ -69,7 +68,8 @@ import kotlin.random.Random
                     (0..4).random(), (0..2).random(),
                     Random.nextBoolean(), (0..2).random(), (0..30).random(),
                     (0..5).random().toFloat(), tecnicos.random(),
-                    "tarea $it realizada por el técnico \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat ligula et vehicula mattis. Etiam tristique ornare lacinia. Vestibulum lacus magna, dignissim et tempor id, convallis sed augue"
+                    "tarea $it realizada por el técnico \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat ligula et vehicula mattis. Etiam tristique ornare lacinia. Vestibulum lacus magna, dignissim et tempor id, convallis sed augue",
+                    ""
                 )
                 tareasDao.addTarea(tarea)
             })

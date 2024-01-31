@@ -1,5 +1,6 @@
 package model
 
+import android.net.Uri
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -16,19 +17,22 @@ data class Tarea(
     val horasTrabajo:Int,
     val valoracionCliente:Float,
     val tecnico:String,
-    val descripcion:String
+    val descripcion:String,
+    val fotoUri: Uri?
 ):Parcelable
 {
 
     //segundo constructor que genera id nuevo
-    constructor( categoria:Int,
-                 prioridad:Int,
-                 pagado:Boolean,
-                 estado:Int,
-                 horasTrabajo:Int,
-                 valoracionCliente:Float,
-                 tecnico:String,
-                 descripcion:String):this(null,categoria,prioridad,pagado,estado,horasTrabajo,valoracionCliente, tecnico, descripcion)
+    constructor(categoria:Int,
+                prioridad:Int,
+                pagado:Boolean,
+                estado:Int,
+                horasTrabajo:Int,
+                valoracionCliente:Float,
+                tecnico:String,
+                descripcion:String,
+                fotoUri: Uri?
+    ):this(null,categoria,prioridad,pagado,estado,horasTrabajo,valoracionCliente, tecnico, descripcion,fotoUri)
     {}
 
     companion object {

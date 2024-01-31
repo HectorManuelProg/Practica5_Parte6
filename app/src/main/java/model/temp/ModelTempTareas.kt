@@ -83,7 +83,8 @@ object ModelTempTareas {
                 (0..30).random(),
                 (0..5).random().toFloat(),
                 tecnicos.random(),
-                "tarea $it Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat ligula et vehicula mattis. \n Etiam tristique ornare lacinia. Vestibulum lacus magna, dignissim et tempor id, convallis sed augue"
+                "tarea $it Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat ligula et vehicula mattis. \n Etiam tristique ornare lacinia. Vestibulum lacus magna, dignissim et tempor id, convallis sed augue",
+            ""
             )
             tareas.add(tarea)
         })

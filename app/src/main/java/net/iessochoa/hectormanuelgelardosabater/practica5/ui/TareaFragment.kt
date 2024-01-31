@@ -2,6 +2,7 @@ package net.iessochoa.hectormanuelgelardosabater.practica5.ui
 
 import ViewModel.AppViewModel
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ class TareaFragment : Fragment() {
     //será una tarea nueva si no hay argumento
     val esNuevo by lazy { args.tarea==null }
     private val binding get() = _binding!!
+    private var fotoUri: Uri? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,6 +95,7 @@ class TareaFragment : Fragment() {
         val categoria=binding.spCategoria.selectedItemPosition
         val prioridad=binding.spPrioridad.selectedItemPosition
         val pagado=binding.swPagado.isChecked
+
         val estado = when (binding.rgEstado.checkedRadioButtonId) {
             R.id.rbAbierta -> 0
             R.id.rgbEnCurso -> 1
@@ -103,10 +106,11 @@ class TareaFragment : Fragment() {
         val tecnico=binding.etTecnico.text.toString()
         val descripcion=binding.etDescripcion.text.toString()
         //creamos la tarea: si es nueva, generamos un id, en otro caso le asignamos su id
+
         val tarea = if(esNuevo)
-            Tarea(categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion)
+            Tarea(categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion,fotoUri)
         else
-            Tarea(args.tarea!!.id,categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion)
+            Tarea(args.tarea!!.id,categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion,fotoUri)
         //guardamos la tarea desde el viewmodel
         viewModel.addTarea(tarea)
         //salimos de editarFragment
