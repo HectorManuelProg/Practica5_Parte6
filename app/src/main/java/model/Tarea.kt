@@ -23,15 +23,16 @@ data class Tarea(
 {
 
     //segundo constructor que genera id nuevo
-    constructor(categoria:Int,
-                prioridad:Int,
-                pagado:Boolean,
-                estado:Int,
-                horasTrabajo:Int,
-                valoracionCliente:Float,
-                tecnico:String,
-                descripcion:String,
-                fotoUri: Uri?
+    constructor(
+        categoria:Int,
+        prioridad:Int,
+        pagado:Boolean,
+        estado:Int,
+        horasTrabajo:Int,
+        valoracionCliente:Float,
+        tecnico:String,
+        descripcion:String,
+        fotoUri: Uri?
     ):this(null,categoria,prioridad,pagado,estado,horasTrabajo,valoracionCliente, tecnico, descripcion,fotoUri)
     {}
 

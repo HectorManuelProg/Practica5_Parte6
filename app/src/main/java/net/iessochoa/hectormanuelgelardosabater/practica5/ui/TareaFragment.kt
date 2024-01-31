@@ -1,6 +1,10 @@
 package net.iessochoa.hectormanuelgelardosabater.practica5.ui
 
 import ViewModel.AppViewModel
+import android.Manifest
+import android.app.AlertDialog
+import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -11,7 +15,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -30,8 +37,9 @@ class TareaFragment : Fragment() {
     private var _binding: FragmentTareaBinding? = null
     val args: TareaFragmentArgs by navArgs()
     private val viewModel: AppViewModel by activityViewModels()
+
     //será una tarea nueva si no hay argumento
-    val esNuevo by lazy { args.tarea==null }
+    val esNuevo by lazy { args.tarea == null }
     private val binding get() = _binding!!
     private var fotoUri: Uri? = null
     override fun onCreateView(
@@ -41,6 +49,7 @@ class TareaFragment : Fragment() {
         _binding = FragmentTareaBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,16 +64,16 @@ class TareaFragment : Fragment() {
         iniciaSwPagado()
         iniciaRgEstado()
         iniciaSbHoras()
+        iniciaIvBuscarFoto()
 
         iniciaFabGuardar()
 
         //si es nueva tarea o es una edicion
-        if (esNuevo){//nueva tarea
-        //cambiamos el título de la ventana
+        if (esNuevo) {//nueva tarea
+            //cambiamos el título de la ventana
             (requireActivity() as AppCompatActivity).supportActionBar?.title = "Nueva tarea"
-        iniciaTecnico()
-    }
-          else
+            iniciaTecnico()
+        } else
             iniciaTarea(args.tarea!!)
     }
 
@@ -91,39 +100,64 @@ class TareaFragment : Fragment() {
     }
 
     private fun guardaTarea() {
-    //recuperamos los datos
-        val categoria=binding.spCategoria.selectedItemPosition
-        val prioridad=binding.spPrioridad.selectedItemPosition
-        val pagado=binding.swPagado.isChecked
+        //recuperamos los datos
+        val categoria = binding.spCategoria.selectedItemPosition
+        val prioridad = binding.spPrioridad.selectedItemPosition
+        val pagado = binding.swPagado.isChecked
 
         val estado = when (binding.rgEstado.checkedRadioButtonId) {
             R.id.rbAbierta -> 0
             R.id.rgbEnCurso -> 1
             else -> 2
         }
-        val horas=binding.sbHoras.progress
-        val valoracion=binding.rtbValoracion.rating
-        val tecnico=binding.etTecnico.text.toString()
-        val descripcion=binding.etDescripcion.text.toString()
+        val horas = binding.sbHoras.progress
+        val valoracion = binding.rtbValoracion.rating
+        val tecnico = binding.etTecnico.text.toString()
+        val descripcion = binding.etDescripcion.text.toString()
         //creamos la tarea: si es nueva, generamos un id, en otro caso le asignamos su id
 
-        val tarea = if(esNuevo)
-            Tarea(categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion,fotoUri)
+        val tarea = if (esNuevo)
+            Tarea(
+                categoria,
+                prioridad,
+                pagado,
+                estado,
+                horas,
+                valoracion,
+                tecnico,
+                descripcion,
+                fotoUri
+            )
         else
-            Tarea(args.tarea!!.id,categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion,fotoUri)
+            Tarea(
+                args.tarea!!.id,
+                categoria,
+                prioridad,
+                pagado,
+                estado,
+                horas,
+                valoracion,
+                tecnico,
+                descripcion,
+                fotoUri
+            )
         //guardamos la tarea desde el viewmodel
         viewModel.addTarea(tarea)
         //salimos de editarFragment
         findNavController().popBackStack()
     }
+
     private fun iniciaFabGuardar() {
         binding.fabGuardar.setOnClickListener {
-            if (binding.etTecnico.text.toString().isEmpty() || binding.etDescripcion.text.toString().isEmpty()){
-               // muestraMensajeError()
+            if (binding.etTecnico.text.toString().isEmpty() || binding.etDescripcion.text.toString()
+                    .isEmpty()
+            ) {
+                // muestraMensajeError()
                 val mensaje = "Los campos no pueden estar vacios"
-                Snackbar.make(binding.root,mensaje,Snackbar.LENGTH_LONG).setAction("Action",null).show()
+                Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_LONG).setAction("Action", null)
+                    .show()
             } else
-            guardaTarea()
+                guardaTarea()
         }
     }
 
@@ -134,53 +168,63 @@ class TareaFragment : Fragment() {
             //array de strings
             R.array.categoria,
             //layout para mostrar el elemento seleccionado
-            R.layout.spinner_items).also { adapter ->
+            R.layout.spinner_items
+        ).also { adapter ->
             // Layout para mostrar la apariencia de la lista
             adapter.setDropDownViewResource(R.layout.spinner_items)
             // asignamos el adaptador al spinner
             binding.spCategoria.adapter = adapter
         }
         binding.spCategoria.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, posicion: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                posicion: Int,
+                id: Long
+            ) {
                 //recuperamos el valor
-                val valor=binding.spCategoria.getItemAtPosition(posicion)
+                val valor = binding.spCategoria.getItemAtPosition(posicion)
                 //creamos el mensaje desde el recurso string parametrizado
-                val mensaje=getString(R.string.mensaje_categoria,valor)
+                val mensaje = getString(R.string.mensaje_categoria, valor)
                 //mostramos el mensaje donde "binding.root" es el ContrainLayout principal
                 Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Manejar evento cuando no se selecciona nada en el Spinner
             }
         }
     }
+
     private fun iniciaRgEstado() {
         //listener de radioGroup
         binding.rgEstado.setOnCheckedChangeListener { _, checkedId ->
-            val imagen= when (checkedId){//el id del RadioButton seleccionado
+            val imagen = when (checkedId) {//el id del RadioButton seleccionado
                 //id del cada RadioButon
-                R.id.rbAbierta-> R.drawable.ic_abierto
-                R.id.rgbEnCurso->R.drawable.ic_encurso
-                else-> R.drawable.ic_cerrado
+                R.id.rbAbierta -> R.drawable.ic_abierto
+                R.id.rgbEnCurso -> R.drawable.ic_encurso
+                else -> R.drawable.ic_cerrado
             }
             binding.ivEstado.setImageResource(imagen)
         }
         //iniciamos a abierto
         binding.rgEstado.check(R.id.rbAbierta)
     }
+
     private fun iniciaSwPagado() {
         binding.swPagado.setOnCheckedChangeListener { _, isChecked ->
             //cambiamos el icono si está marcado o no el switch
-            val imagen=if (isChecked) R.drawable.ic_pagado
+            val imagen = if (isChecked) R.drawable.ic_pagado
             else R.drawable.ic_no_pagado
             //asignamos la imagen desde recursos
             binding.ivPagado.setImageResource(imagen)
         }
         //iniciamos a valor false
-        binding.swPagado.isChecked=false
+        binding.swPagado.isChecked = false
         binding.ivPagado.setImageResource(R.drawable.ic_no_pagado)
     }
+
     private fun iniciaSpPrioridad() {
         ArrayAdapter.createFromResource(
             //contexto suele ser la Activity
@@ -188,48 +232,82 @@ class TareaFragment : Fragment() {
             //array de strings
             R.array.prioridad,
             //layout para mostrar el elemento seleccionado
-            R.layout.spinner_items).also { adapter ->
+            R.layout.spinner_items
+        ).also { adapter ->
             // Layout para mostrar la apariencia de la lista
             adapter.setDropDownViewResource(R.layout.spinner_items)
             // asignamos el adaptador al spinner
             binding.spPrioridad.adapter = adapter
         }
-        binding.spPrioridad.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+        binding.spPrioridad.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, v: View?, posicion: Int, id: Long) {
                 //el array son 3 elementos y "alta" ocupa la tercera posición
-                if(posicion==2){
+                if (posicion == 2) {
                     binding.clytTarea.setBackgroundColor(requireContext().getColor(R.color.prioridad_alta))
-                }else{//si no es prioridad alta quitamos el color
+                } else {//si no es prioridad alta quitamos el color
                     binding.clytTarea.setBackgroundColor(Color.TRANSPARENT)
                 }
             }
+
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 binding.clytTarea.setBackgroundColor(Color.TRANSPARENT)
             }
         }
     }
+
     private fun iniciaSbHoras() {
         //asignamos el evento
-        binding.sbHoras.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        binding.sbHoras.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progreso: Int, p2: Boolean) {
-            //Mostramos el progreso en el textview
-                binding.tvHoras.text=getString(R.string.horas_trabajadas,progreso)
+                //Mostramos el progreso en el textview
+                binding.tvHoras.text = getString(R.string.horas_trabajadas, progreso)
             }
+
             override fun onStartTrackingTouch(p0: SeekBar?) {
             }
+
             override fun onStopTrackingTouch(p0: SeekBar?) {
             }
         })
         //inicio del progreso
-        binding.sbHoras.progress=0
-        binding.tvHoras.text=getString(R.string.horas_trabajadas,0)
+        binding.sbHoras.progress = 0
+        binding.tvHoras.text = getString(R.string.horas_trabajadas, 0)
+    }
+
+    private fun buscarFoto() {
+        Toast.makeText(requireContext(), "Buscando la foto…", Toast.LENGTH_SHORT).show()
+    }
+
+    fun iniciaIvBuscarFoto() {
+        binding.ivBuscarFoto.setOnClickListener() {
+            when {
+//si tenemos los permisos
+                permisosAceptados() -> buscarFoto()
+//no tenemos los permisos y los solicitamos
+                else ->
+                    solicitudPermisosLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
+    }
+
+    private val solicitudPermisosLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+// Permission has been granted.
+            buscarFoto()
+        } else {
+// Permission request was denied.
+            explicarPermisos()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-    private fun iniciaTecnico(){
+
+    private fun iniciaTecnico() {
         //recuperamos las preferencias
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -237,5 +315,30 @@ class TareaFragment : Fragment() {
         val tecnico = sharedPreferences.getString(MainActivity.PREF_NOMBRE, "")
         //lo asignamos
         binding.etTecnico.setText(tecnico)
+    }
+
+    fun permisosAceptados() =
+        ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+    fun explicarPermisos() {
+        AlertDialog.Builder(activity as Context)
+            .setTitle(android.R.string.dialog_alert_title)
+//TODO:recuerda: el texto en string.xml
+            .setMessage("Es necesario el permiso de \"Lectura de fichero\" para mostrar una foto.\nDesea aceptar los permisos?")
+//acción si pulsa si
+            .setPositiveButton(android.R.string.ok) { v, _ ->
+//Solicitamos los permisos de nuevo
+                solicitudPermisosLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+//cerramos el dialogo
+                v.dismiss()
+            }
+//accion si pulsa no
+            .setNegativeButton(android.R.string.cancel) { v, _ -> v.dismiss() }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 }
