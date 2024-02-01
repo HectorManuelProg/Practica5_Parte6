@@ -126,7 +126,7 @@ class TareaFragment : Fragment() {
                 valoracion,
                 tecnico,
                 descripcion,
-                fotoUri
+                ""
             )
         else
             Tarea(
@@ -139,7 +139,7 @@ class TareaFragment : Fragment() {
                 valoracion,
                 tecnico,
                 descripcion,
-                fotoUri
+                ""
             )
         //guardamos la tarea desde el viewmodel
         viewModel.addTarea(tarea)
@@ -281,9 +281,9 @@ class TareaFragment : Fragment() {
     fun iniciaIvBuscarFoto() {
         binding.ivBuscarFoto.setOnClickListener() {
             when {
-//si tenemos los permisos
+                //si tenemos los permisos
                 permisosAceptados() -> buscarFoto()
-//no tenemos los permisos y los solicitamos
+                //no tenemos los permisos y los solicitamos
                 else ->
                     solicitudPermisosLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }

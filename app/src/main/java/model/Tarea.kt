@@ -18,7 +18,7 @@ data class Tarea(
     val valoracionCliente:Float,
     val tecnico:String,
     val descripcion:String,
-    val fotoUri: Uri?
+    val fotoUri: String
 ):Parcelable
 {
 
@@ -32,7 +32,7 @@ data class Tarea(
         valoracionCliente:Float,
         tecnico:String,
         descripcion:String,
-        fotoUri: Uri?
+        fotoUri: String
     ):this(null,categoria,prioridad,pagado,estado,horasTrabajo,valoracionCliente, tecnico, descripcion,fotoUri)
     {}
 
