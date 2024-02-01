@@ -2,12 +2,15 @@ package net.iessochoa.hectormanuelgelardosabater.practica5.ui
 
 import ViewModel.AppViewModel
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +22,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.updatePadding
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -37,11 +41,26 @@ class TareaFragment : Fragment() {
     private var _binding: FragmentTareaBinding? = null
     val args: TareaFragmentArgs by navArgs()
     private val viewModel: AppViewModel by activityViewModels()
+    var uriFoto=""
+
+    //petición de foto de la galería
+    private val solicitudFotoGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+//uri de la foto elegida
+            val uri = result.data?.data
+//mostramos la foto
+            binding.ivFoto.setImageURI(uri)
+//guardamos la uri
+            uriFoto = uri.toString()
+        }
+    }
 
     //será una tarea nueva si no hay argumento
     val esNuevo by lazy { args.tarea == null }
     private val binding get() = _binding!!
-    private var fotoUri: Uri? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -95,6 +114,9 @@ class TareaFragment : Fragment() {
         binding.rtbValoracion.rating = tarea.valoracionCliente
         binding.etTecnico.setText(tarea.tecnico)
         binding.etDescripcion.setText(tarea.descripcion)
+        if (!tarea.fotoUri.isNullOrEmpty())
+            binding.ivFoto.setImageURI(tarea.fotoUri.toUri())
+        uriFoto=tarea.fotoUri
         //cambiamos el título
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Tarea ${tarea.id}"
     }
@@ -126,7 +148,7 @@ class TareaFragment : Fragment() {
                 valoracion,
                 tecnico,
                 descripcion,
-                ""
+                uriFoto
             )
         else
             Tarea(
@@ -139,7 +161,7 @@ class TareaFragment : Fragment() {
                 valoracion,
                 tecnico,
                 descripcion,
-                ""
+                uriFoto
             )
         //guardamos la tarea desde el viewmodel
         viewModel.addTarea(tarea)
@@ -275,10 +297,16 @@ class TareaFragment : Fragment() {
     }
 
     private fun buscarFoto() {
-        Toast.makeText(requireContext(), "Buscando la foto…", Toast.LENGTH_SHORT).show()
+//Toast.makeText(requireContext(), "Buscando la foto...", Toast.LENGTH_SHORT).show()
+        val intent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
+        intent.type = "image/*"
+        solicitudFotoGallery.launch(intent)
     }
 
-    fun iniciaIvBuscarFoto() {
+        fun iniciaIvBuscarFoto() {
         binding.ivBuscarFoto.setOnClickListener() {
             when {
                 //si tenemos los permisos
