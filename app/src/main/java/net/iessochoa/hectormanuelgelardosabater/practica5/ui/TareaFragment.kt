@@ -305,7 +305,6 @@ class TareaFragment : Fragment() {
         intent.type = "image/*"
         solicitudFotoGallery.launch(intent)
     }
-
         fun iniciaIvBuscarFoto() {
         binding.ivBuscarFoto.setOnClickListener() {
             when {
