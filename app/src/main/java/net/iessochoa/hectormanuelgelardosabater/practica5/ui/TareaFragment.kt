@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import model.Tarea
 import net.iessochoa.hectormanuelgelardosabater.practica5.R
+import net.iessochoa.hectormanuelgelardosabater.practica5.VerFoto
 import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentTareaBinding
 
 /**
@@ -76,6 +78,23 @@ class TareaFragment : Fragment() {
             view.updatePadding(bottom = insets.systemWindowInsetBottom)
             insets
         }
+       /* binding.ivFoto.setOnClickListener {
+            // Configurar la transición de ampliación
+            val action = TareaFragmentDirections.actionTareaFragmentToVerFotoFragment(uriFoto)
+            findNavController().navigate(action)
+
+            // Aplicar la transición
+           /* exitTransition = transition
+            reenterTransition = transition
+
+            // Ampliar la imagen
+            val detalleFragmento = VerFotoFragment.newInstance(uriFoto)  // Pasa la URI de la foto
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.fragment_ver_foto, detalleFragmento)
+                ?.addToBackStack(null)
+                ?.commit()*/
+        }*/
 
         //Iniciamos las funciones
         iniciaSpCategoria()
