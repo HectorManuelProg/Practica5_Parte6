@@ -73,6 +73,9 @@ class TareaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.ivHacerFoto.setOnClickListener {
+            abrirFotoFragment()
+        }
 
         binding.root.setOnApplyWindowInsetsListener { view, insets ->
             view.updatePadding(bottom = insets.systemWindowInsetBottom)
@@ -113,6 +116,9 @@ class TareaFragment : Fragment() {
             iniciaTecnico()
         } else
             iniciaTarea(args.tarea!!)
+    }
+    private fun abrirFotoFragment() {
+        findNavController().navigate(R.id.action_tareaFragment_to_fotoFragment)
     }
 
     /**
