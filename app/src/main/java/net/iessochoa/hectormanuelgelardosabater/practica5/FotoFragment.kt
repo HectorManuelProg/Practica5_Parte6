@@ -26,12 +26,17 @@ import android.widget.Toast
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import java.util.Locale
 
 class FotoFragment : Fragment() {
     private var _binding: FragmentFotoBinding? = null
     private var uriFoto: Uri?=null
     private val binding get() = _binding!!
+    val args: FotoFragmentArgs by navArgs()
+
     //Array con los permisos necesarios
     private val PERMISOS_REQUERIDOS =
         mutableListOf (
@@ -43,7 +48,6 @@ class FotoFragment : Fragment() {
         }.toTypedArray()
 
     private var imageCapture: ImageCapture? = null
-
 
     companion object {
         private const val TAG = "Practica5_CameraX"
@@ -71,6 +75,13 @@ class FotoFragment : Fragment() {
             takePhoto()
         }
 
+        binding.ivMuestra.setOnClickListener(){
+
+            var tarea=args.tarea?.copy(fotoUri =uriFoto.toString())
+            val action =
+                FotoFragmentDirections.actionFotoFragmentToTareaFragment(tarea)
+            findNavController().navigate(action)
+        }
         if (allPermissionsGranted()) {
             startCamera()
         } else {
@@ -204,3 +215,6 @@ class FotoFragment : Fragment() {
             .show()
     }
 }
+
+
+

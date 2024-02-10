@@ -122,6 +122,13 @@ class TareaFragment : Fragment() {
      * Carga los valores de la tarea a editar
      */
     private fun iniciaTarea(tarea: Tarea) {
+        if (tarea == null) {
+            // Si la tarea es nula, mostramos "Nueva Tarea"
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = "Nueva Tarea"
+        } else {
+            // Si hay una tarea, mostramos su número de tarea
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = "Tarea ${tarea.id}"
+        }
         binding.spCategoria.setSelection(tarea.categoria)
         binding.spPrioridad.setSelection(tarea.prioridad)
         binding.swPagado.isChecked = tarea.pagado
@@ -147,7 +154,7 @@ class TareaFragment : Fragment() {
         findNavController().navigate(TareaFragmentDirections.actionTareaFragmentToFotoFragment())
     }
 
-    private fun guardaTarea() {
+    /*private fun guardaTarea() {
         //recuperamos los datos
         val categoria = binding.spCategoria.selectedItemPosition
         val prioridad = binding.spPrioridad.selectedItemPosition
@@ -166,33 +173,41 @@ class TareaFragment : Fragment() {
 
         val tarea = if (esNuevo)
             Tarea(
-                categoria,
-                prioridad,
-                pagado,
-                estado,
-                horas,
-                valoracion,
-                tecnico,
-                descripcion,
-                uriFoto
-            )
+                categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion,uriFoto)
         else
             Tarea(
-                args.tarea!!.id,
-                categoria,
-                prioridad,
-                pagado,
-                estado,
-                horas,
-                valoracion,
-                tecnico,
-                descripcion,
-                uriFoto
-            )
+                args.tarea!!.id,categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion,uriFoto)
         //guardamos la tarea desde el viewmodel
         viewModel.addTarea(tarea)
         //salimos de editarFragment
         findNavController().popBackStack()
+    }*/
+    private fun guardaTarea() {
+//recuperamos los datos
+//guardamos la tarea desde el viewmodel
+        viewModel.addTarea(creaTarea())
+//salimos de editarFragment
+        findNavController().popBackStack()
+    }
+    private fun creaTarea():Tarea{
+        val categoria=binding.spCategoria.selectedItemPosition
+        val prioridad=binding.spPrioridad.selectedItemPosition
+        val pagado=binding.swPagado.isChecked
+        val estado=when (binding.rgEstado.checkedRadioButtonId) {
+            R.id.rbAbierta -> 0
+            R.id.rgbEnCurso -> 1
+            else -> 2
+        }
+        val horas=binding.sbHoras.progress
+        val valoracion=binding.rtbValoracion.rating
+        val tecnico=binding.etTecnico.text.toString()
+        val descripcion=binding.etDescripcion.text.toString()
+//creamos la tarea: si es nueva, generamos un id, en otro caso le asignamos su id
+        val tarea = if(esNuevo)
+            Tarea(categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion, uriFoto)
+        else//venimos de hacer foto
+            Tarea(args.tarea!!.id,categoria,prioridad,pagado,estado,horas,valoracion,tecnico,descripcion, uriFoto)
+        return tarea
     }
 
     private fun iniciaFabGuardar() {

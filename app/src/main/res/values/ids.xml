@@ -4,4 +4,5 @@
     <item name="verFoto" type="id" />
     <item name="verFotoFragment" type="id" />
     <item name="action_tareaFragment_to_fotoFragment" type="id" />
+    <item name="listaFragment" type="id" />
 </resources>

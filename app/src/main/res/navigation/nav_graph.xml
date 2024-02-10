@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_TareaFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_TareaFragment_to_ListaFragment"
+            app:destination="@id/ListaFragment" />
     </fragment>
 
     <fragment
@@ -44,8 +47,13 @@
     <fragment
         android:id="@+id/fotoFragment"
         android:name="net.iessochoa.hectormanuelgelardosabater.practica5.FotoFragment"
-        android:label="fragment_foto"
-        tools:layout="@layout/fragment_foto" >
+        android:label="Hacer Foto"
+        tools:layout="@layout/fragment_foto">
+        <argument
+            android:name="tarea"
+            app:argType="model.Tarea"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_fotoFragment_to_TareaFragment"
             app:destination="@id/TareaFragment"
