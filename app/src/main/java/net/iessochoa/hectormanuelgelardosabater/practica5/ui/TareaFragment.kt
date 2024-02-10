@@ -117,9 +117,6 @@ class TareaFragment : Fragment() {
         } else
             iniciaTarea(args.tarea!!)
     }
-    private fun abrirFotoFragment() {
-        findNavController().navigate(R.id.action_tareaFragment_to_fotoFragment)
-    }
 
     /**
      * Carga los valores de la tarea a editar
@@ -144,6 +141,10 @@ class TareaFragment : Fragment() {
         uriFoto=tarea.fotoUri
         //cambiamos el título
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Tarea ${tarea.id}"
+    }
+    private fun abrirFotoFragment() {
+        // Navega al FotoFragment
+        findNavController().navigate(TareaFragmentDirections.actionTareaFragmentToFotoFragment())
     }
 
     private fun guardaTarea() {

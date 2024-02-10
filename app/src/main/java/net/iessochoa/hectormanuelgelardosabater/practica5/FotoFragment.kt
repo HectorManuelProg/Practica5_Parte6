@@ -9,23 +9,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import net.iessochoa.hectormanuelgelardosabater.practica5.databinding.FragmentFotoBinding
+import android.util.Log
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
 import android.Manifest
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 
 class FotoFragment : Fragment() {
     private var _binding: FragmentFotoBinding? = null
     private val binding get() = _binding!!
     //Array con los permisos necesarios
     private val PERMISOS_REQUERIDOS =
-        mutableListOf (Manifest.permission.CAMERA).apply {
-           //si la versión de Android es menor o igual a la 9 pedimos el permiso de escritura
+        mutableListOf (
+            Manifest.permission.CAMERA).apply {
+//si la versión de Android es menor o igual a la 9 pedimos el permiso de escritura
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                 add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
         }.toTypedArray()
+
+    companion object {
+        private const val TAG = "Practica5_CameraX"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,31 +44,56 @@ class FotoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentFotoBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-
         if (allPermissionsGranted()) {
             startCamera()
         } else {
             solicitudPermisosLauncher.launch(PERMISOS_REQUERIDOS)
         }
-
     }
+
     private fun allPermissionsGranted() = PERMISOS_REQUERIDOS.all {
         ContextCompat.checkSelfPermission(requireContext(), it) ==
                 PackageManager.PERMISSION_GRANTED
     }
+
+    /*private fun startCamera() {
+        // Inicializa el proveedor de la cámara
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        cameraProviderFuture.addListener({
+            // Obtiene el proveedor de la cámara
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            // Configura la vista previa de la cámara
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+            }
+            // Selecciona la cámara trasera como predeterminada
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            try {
+                // Desvincula todos los casos de uso antes de volver a vincularlos
+                cameraProvider.unbindAll()
+                // Vincula los casos de uso a la cámara
+                cameraProvider.bindToLifecycle(viewLifecycleOwner, cameraSelector, preview)
+            } catch (exc: Exception) {
+                Log.e(TAG, "Error al vincular los casos de uso", exc)
+            }
+        }, ContextCompat.getMainExecutor(requireContext()))
+    }*/
+
     private fun startCamera() {
         Toast.makeText(requireContext(),
             "Camara iniciada…",
             Toast.LENGTH_SHORT).show()
     }
+
     //Permite lanzar la solicitud de permisos al sistema operativo y actuar según el usuario
     //los acepte o no
     val solicitudPermisosLauncher = registerForActivityResult(
@@ -65,29 +101,30 @@ class FotoFragment : Fragment() {
         ActivityResultContracts.RequestMultiplePermissions()
     ) { isGranted: Map<String, Boolean> ->
         if (allPermissionsGranted()) {
-        //Si tenemos los permisos, iniciamos la cámara
+            //Si tenemos los permisos, iniciamos la cámara
             startCamera()
         } else {
-        // Si no tenemos los permisos. Explicamos al usuario
+            // Si no tenemos los permisos. Explicamos al usuario
             explicarPermisos()
         }
     }
+
     fun explicarPermisos() {
         AlertDialog.Builder(requireContext())
             .setTitle(android.R.string.dialog_alert_title)
-             //TODO:recuerda: el texto en string.xml
+            //TODO:recuerda: el texto en string.xml
             .setMessage("Son necesarios los permisos para hacer una foto.\nDesea aceptar los permisos?")
             //acción si pulsa si
             .setPositiveButton(android.R.string.ok) { v, _ ->
-            //Solicitamos los permisos de nuevo
-            solicitudPermisosLauncher.launch(PERMISOS_REQUERIDOS)
-            //cerramos el dialogo
-            v.dismiss()
+                //Solicitamos los permisos de nuevo
+                solicitudPermisosLauncher.launch(PERMISOS_REQUERIDOS)
+                //cerramos el dialogo
+                v.dismiss()
             }
             //accion si pulsa no
             .setNegativeButton(android.R.string.cancel) { v, _ ->
                 v.dismiss()
-            //cerramos el fragment
+                //cerramos el fragment
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
             .setCancelable(false)

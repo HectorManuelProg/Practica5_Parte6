@@ -28,19 +28,19 @@
             app:argType="model.Tarea"
             app:nullable="true" />
         <action
-            android:id="@+id/action_TareaFragment_to_verFotoFragment"
-            app:destination="@id/verFotoFragment"
-            app:launchSingleTop="true" />
-        <action
             android:id="@+id/action_TareaFragment_to_fotoFragment"
             app:destination="@id/fotoFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_TareaFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="net.iessochoa.hectormanuelgelardosabater.practica5.SettingsFragment"
         android:label="SettingsFragment" />
+
     <fragment
         android:id="@+id/fotoFragment"
         android:name="net.iessochoa.hectormanuelgelardosabater.practica5.FotoFragment"
